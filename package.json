@@ -8,6 +8,7 @@
     "start": "next start",
     "migrate": "node migrate.js",
     "import:subscribers": "node scripts/import-subscribers.js",
+    "import:subscribers:batch": "node scripts/import-subscribers-batch.js",
     "import:posts": "node scripts/import-posts.js"
   },
   "dependencies": {

@@ -1,7 +1,13 @@
 import { NextResponse } from 'next/server';
 import db from '../../../../lib/db';
+import { getAuthFromRequest } from '../../../../lib/auth';
 
-export async function GET() {
+export async function GET(request) {
+  // Verify auth
+  const auth = getAuthFromRequest(request);
+  if (!auth) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
   try {
     const result = await db.query(
       `SELECT id, title, slug, content, excerpt, status, is_page,

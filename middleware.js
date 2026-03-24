@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { getAuthFromRequest } from './lib/auth';
 
 export async function middleware(request) {
   const pathname = request.nextUrl.pathname;
@@ -11,9 +10,10 @@ export async function middleware(request) {
 
   // Check auth for all admin routes
   if (pathname.startsWith('/admin') || pathname.startsWith('/api/admin')) {
-    const auth = getAuthFromRequest(request);
+    const cookieHeader = request.headers.get('cookie');
+    const hasSession = cookieHeader && cookieHeader.includes('admin_session=');
 
-    if (!auth) {
+    if (!hasSession) {
       // Redirect to login for page requests
       if (!pathname.startsWith('/api')) {
         return NextResponse.redirect(new URL('/admin/login', request.url));
@@ -24,6 +24,10 @@ export async function middleware(request) {
         { status: 401, headers: { 'Content-Type': 'application/json' } }
       );
     }
+
+    // For API routes, verify the session properly in the route handler
+    // For pages, verify in the page component
+    // This middleware just checks for session existence
   }
 
   return NextResponse.next();
