@@ -11,7 +11,8 @@ export default function PostEditor({
   onSave,
   saving,
   showSendButton = false,
-  onSend
+  onSend,
+  onSendTest
 }) {
   const editor = useEditor({
     extensions: [
@@ -198,13 +199,22 @@ export default function PostEditor({
         </button>
 
         {showSendButton && (
-          <button
-            type="button"
-            onClick={onSend}
-            className="btn btn-secondary"
-          >
-            Send as Newsletter
-          </button>
+          <>
+            <button
+              type="button"
+              onClick={onSend}
+              className="btn btn-secondary"
+            >
+              Send as Newsletter
+            </button>
+            <button
+              type="button"
+              onClick={onSendTest}
+              className="btn btn-secondary"
+            >
+              Send Test Email
+            </button>
+          </>
         )}
       </div>
     </div>

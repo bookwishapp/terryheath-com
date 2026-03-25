@@ -12,6 +12,10 @@ const SendModal = dynamic(() => import('../../../../../components/SendModal'), {
   ssr: false,
 });
 
+const TestEmailModal = dynamic(() => import('../../../../../components/TestEmailModal'), {
+  ssr: false,
+});
+
 export default function EditPostPage({ params }) {
   const router = useRouter();
   const [post, setPost] = useState(null);
@@ -19,6 +23,7 @@ export default function EditPostPage({ params }) {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [showSendModal, setShowSendModal] = useState(false);
+  const [showTestModal, setShowTestModal] = useState(false);
 
   useEffect(() => {
     fetchPost();
@@ -74,6 +79,14 @@ export default function EditPostPage({ params }) {
     setShowSendModal(true);
   };
 
+  const handleSendTest = () => {
+    if (post.status !== 'published') {
+      setError('Post must be published before sending test email');
+      return;
+    }
+    setShowTestModal(true);
+  };
+
   if (loading) {
     return <div className="loading">Loading...</div>;
   }
@@ -95,6 +108,7 @@ export default function EditPostPage({ params }) {
         saving={saving}
         showSendButton={post.status === 'published' && !post.is_page}
         onSend={handleSendNewsletter}
+        onSendTest={handleSendTest}
       />
 
       {showSendModal && (
@@ -105,6 +119,13 @@ export default function EditPostPage({ params }) {
             setShowSendModal(false);
             router.push('/admin/sends');
           }}
+        />
+      )}
+
+      {showTestModal && (
+        <TestEmailModal
+          post={post}
+          onClose={() => setShowTestModal(false)}
         />
       )}
     </div>
