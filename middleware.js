@@ -24,10 +24,6 @@ export async function middleware(request) {
         { status: 401, headers: { 'Content-Type': 'application/json' } }
       );
     }
-
-    // For API routes, verify the session properly in the route handler
-    // For pages, verify in the page component
-    // This middleware just checks for session existence
   }
 
   return NextResponse.next();

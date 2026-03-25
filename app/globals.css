@@ -332,6 +332,21 @@ tr:hover {
   color: #0066cc;
 }
 
+.admin-nav .logout-btn {
+  background: none;
+  border: none;
+  color: #555;
+  font-weight: 500;
+  font-size: inherit;
+  cursor: pointer;
+  padding: 0;
+  font-family: inherit;
+}
+
+.admin-nav .logout-btn:hover {
+  color: #0066cc;
+}
+
 /* Utility classes */
 .text-center {
   text-align: center;

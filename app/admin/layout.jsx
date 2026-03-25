@@ -35,7 +35,9 @@ export default function AdminLayout({ children }) {
             <Link href="/admin/sends" className={isActive('/admin/sends') ? 'active' : ''}>
               Sends
             </Link>
-            <Link href="/api/admin/logout">Logout</Link>
+            <form action="/api/admin/logout" method="POST" style={{ display: 'inline' }}>
+              <button type="submit" className="logout-btn">Logout</button>
+            </form>
           </nav>
         </div>
       </div>
