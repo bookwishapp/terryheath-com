@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import db from '../../../../lib/db';
 
+export const runtime = 'nodejs';
+
 // Verify SNS signature
 function verifySNSSignature(message) {
   // In production, implement full SNS signature verification

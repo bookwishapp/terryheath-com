@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { serialize } from 'cookie';
 
+export const runtime = 'nodejs';
+
 export async function POST(request) {
   try {
     const { password } = await request.json();

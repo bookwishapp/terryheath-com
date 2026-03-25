@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import db from '../../../../lib/db';
 import { sendNewsletterToSubscribers } from '../../../../lib/email';
 
+export const runtime = 'nodejs';
+
 export async function GET(request) {
   // Verify auth
   const cookieHeader = request.headers.get('cookie');

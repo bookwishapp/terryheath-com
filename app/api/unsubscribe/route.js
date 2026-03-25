@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import db from '../../../lib/db';
 import { validateUnsubscribeToken } from '../../../lib/unsubscribe';
 
+export const runtime = 'nodejs';
+
 export async function POST(request) {
   try {
     const { email, token } = await request.json();

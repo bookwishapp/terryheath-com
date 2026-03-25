@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
 
+export const runtime = 'nodejs';
+
 export async function middleware(request) {
   const pathname = request.nextUrl.pathname;
 

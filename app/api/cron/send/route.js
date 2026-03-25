@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import db from '../../../../lib/db';
 
+export const runtime = 'nodejs';
+
 export async function POST(request) {
   // Verify cron secret
   const cronSecret = request.headers.get('x-cron-secret');

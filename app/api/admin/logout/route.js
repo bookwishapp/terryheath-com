@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { serialize } from 'cookie';
 
+export const runtime = 'nodejs';
+
 export async function GET() {
   const cookie = serialize('admin_session', '', {
     httpOnly: true,
