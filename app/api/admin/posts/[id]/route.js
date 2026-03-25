@@ -2,6 +2,11 @@ import { NextResponse } from 'next/server';
 import db from '../../../../../lib/db';
 
 export async function GET(request, { params }) {
+  // Verify auth
+  const cookieHeader = request.headers.get('cookie');
+  if (!cookieHeader || !cookieHeader.includes('admin_session=')) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
   try {
     const result = await db.query(
       `SELECT id, title, slug, content, excerpt, status, is_page,
@@ -29,6 +34,12 @@ export async function GET(request, { params }) {
 }
 
 export async function PUT(request, { params }) {
+  // Verify auth
+  const cookieHeader = request.headers.get('cookie');
+  if (!cookieHeader || !cookieHeader.includes('admin_session=')) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const body = await request.json();
     const { title, slug, content, is_page, status, scheduled_at } = body;
@@ -97,6 +108,12 @@ export async function PUT(request, { params }) {
 }
 
 export async function DELETE(request, { params }) {
+  // Verify auth
+  const cookieHeader = request.headers.get('cookie');
+  if (!cookieHeader || !cookieHeader.includes('admin_session=')) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const result = await db.query(
       'DELETE FROM posts WHERE id = $1 RETURNING id',

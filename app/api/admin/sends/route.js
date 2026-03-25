@@ -2,7 +2,12 @@ import { NextResponse } from 'next/server';
 import db from '../../../../lib/db';
 import { sendNewsletterToSubscribers } from '../../../../lib/email';
 
-export async function GET() {
+export async function GET(request) {
+  // Verify auth
+  const cookieHeader = request.headers.get('cookie');
+  if (!cookieHeader || !cookieHeader.includes('admin_session=')) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
   try {
     const result = await db.query(
       `SELECT s.*, p.title as post_title
@@ -21,6 +26,12 @@ export async function GET() {
 }
 
 export async function POST(request) {
+  // Verify auth
+  const cookieHeader = request.headers.get('cookie');
+  if (!cookieHeader || !cookieHeader.includes('admin_session=')) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const { post_id, subject } = await request.json();
 

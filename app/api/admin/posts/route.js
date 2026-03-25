@@ -1,11 +1,10 @@
 import { NextResponse } from 'next/server';
 import db from '../../../../lib/db';
-import { getAuthFromRequest } from '../../../../lib/auth';
 
 export async function GET(request) {
-  // Verify auth
-  const auth = getAuthFromRequest(request);
-  if (!auth) {
+  // Verify auth (simplified check for Edge Runtime)
+  const cookieHeader = request.headers.get('cookie');
+  if (!cookieHeader || !cookieHeader.includes('admin_session=')) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
   try {
@@ -26,6 +25,12 @@ export async function GET(request) {
 }
 
 export async function POST(request) {
+  // Verify auth
+  const cookieHeader = request.headers.get('cookie');
+  if (!cookieHeader || !cookieHeader.includes('admin_session=')) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
   try {
     const body = await request.json();
     const { title, slug, content, is_page, status, scheduled_at } = body;

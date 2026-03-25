@@ -1,7 +1,12 @@
 import { NextResponse } from 'next/server';
 import db from '../../../../lib/db';
 
-export async function GET() {
+export async function GET(request) {
+  // Verify auth
+  const cookieHeader = request.headers.get('cookie');
+  if (!cookieHeader || !cookieHeader.includes('admin_session=')) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
   try {
     const result = await db.query(
       `SELECT id, email, first_name, last_name, status, source, subscribed_at

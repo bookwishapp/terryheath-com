@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import crypto from 'crypto';
 import db from '../../../../lib/db';
 
 // Verify SNS signature
