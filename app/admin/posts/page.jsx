@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import db from '../../../lib/db';
+import DeleteButton from '../../../components/admin/DeleteButton';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -67,17 +68,9 @@ export default async function PostsPage() {
                     </Link>
                     <form action={deletePost} style={{ display: 'inline' }}>
                       <input type="hidden" name="id" value={post.id} />
-                      <button
-                        type="submit"
-                        className="btn btn-danger btn-small"
-                        onClick={(e) => {
-                          if (!confirm('Are you sure you want to delete this post?')) {
-                            e.preventDefault();
-                          }
-                        }}
-                      >
+                      <DeleteButton confirmMessage="Are you sure you want to delete this post?">
                         Delete
-                      </button>
+                      </DeleteButton>
                     </form>
                   </div>
                 </td>

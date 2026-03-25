@@ -1,4 +1,5 @@
 import db from '../../../lib/db';
+import DeleteButton from '../../../components/admin/DeleteButton';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -60,17 +61,9 @@ export default async function SubscribersPage() {
                 <td>
                   <form action={deleteSubscriber} style={{ display: 'inline' }}>
                     <input type="hidden" name="id" value={subscriber.id} />
-                    <button
-                      type="submit"
-                      className="btn btn-danger btn-small"
-                      onClick={(e) => {
-                        if (!confirm('Are you sure you want to delete this subscriber?')) {
-                          e.preventDefault();
-                        }
-                      }}
-                    >
+                    <DeleteButton confirmMessage="Are you sure you want to delete this subscriber?">
                       Delete
-                    </button>
+                    </DeleteButton>
                   </form>
                 </td>
               </tr>
